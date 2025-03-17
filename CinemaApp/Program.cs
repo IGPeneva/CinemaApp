@@ -11,7 +11,7 @@ builder.Services.AddDbContext<CinemaDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<CinemaDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -21,6 +21,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    //app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -34,7 +35,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication();//Who am I? -> Login with username and password
+app.UseAuthorization();//What I am allowed to do? -> I know who you are,I tell you what you can do
 
 app.MapControllerRoute(
     name: "default",
