@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CinemaApp.Common\CinemaApp.Common.csproj" />
     <ProjectReference Include="..\CinemaApp.Services\CinemaApp.Services.csproj" />
   </ItemGroup>
 

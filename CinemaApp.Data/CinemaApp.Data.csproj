@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaApp.Common\CinemaApp.Common.csproj" />
+  </ItemGroup>
+
 </Project>
