@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CinemaApp.Data;
 using CinemaApp.Data.Models;
+using CinemaApp.Data.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,5 +46,17 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<CinemaDbContext>();
+
+    await DataProcessor.ImportMoviesFromJson(dbContext);
+    await DataProcessor.ImportCinemasMoviesFromJson(dbContext);
+    //await DataProcessor.ImportTicketsFromXml(dbContext);
+
+}
+
 
 app.Run();
